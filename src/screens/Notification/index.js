@@ -59,7 +59,7 @@ const Notification = (props)  => {
               Admin
             </Text>
             <Text style={{color: 'black', fontSize: 15, fontFamily:"Roboto-Medium"}}>
-              Date : 28/10/2023
+              Date : {moment(new Date()).format('DD MMM YYYY')}
             </Text>
                 </View>
             <Text style={{color: '#9D0700', marginTop:10, fontSize: 15, fontFamily:"Roboto-Medium"}}>

@@ -14,6 +14,9 @@ import HeaderComponent from '../../component/HeaderComponent';
 
 
 const EmployeeLocation = (props)  => {
+  console.log("response we are gettingggg"  ,  props)
+  const location = props?.route?.params?.item
+
     const dispatch = useDispatch();
     const [employeeList , setEmployeeList] = useState(null)
     const data = [

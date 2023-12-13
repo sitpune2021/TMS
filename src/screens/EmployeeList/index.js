@@ -22,6 +22,7 @@ import {
   Alert,
   Switch,
   FlatList,
+  ScrollView,
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import HeaderComponent from '../../component/HeaderComponent';
@@ -44,11 +45,14 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useIsFocused} from '@react-navigation/native';
 
 const EmployeeList = props => {
-  // const [userData, setUserData] = useState(null)
+  console.log("props========>> " , props)
+  // const EmployeeCount = props?.route?.params?.employeeCount
   const [employeeList, setEmployeeList] = useState(null);
   const dispatch = useDispatch();
   const userData = useSelector(state => state);
   const userInfo = userData?.user?.user?.user_id;
+  const EmployeeCount = useSelector(state => state?.dashboardCount?.employeeCount)
+  console.log(EmployeeCount , "props we are recieving")
 
   const isFocused = useIsFocused();
   console.log('++++++++++++++', userInfo);
@@ -116,10 +120,10 @@ const EmployeeList = props => {
   const ImageData = data => {
     console.log('data recieved here====>>>>>>', data);
     return (
-      <TouchableOpacity 
-      onPress={() => {
-        props.navigation.navigate("EmployeeLocation")
-      }}
+      <View 
+      // onPress={() => {
+      //   props.navigation.navigate("EmployeeLocation"  , data)
+      // }}
       style={styles.ImageDataStyle}>
         <Text
           style={{
@@ -162,13 +166,14 @@ const EmployeeList = props => {
             />
           </TouchableOpacity>
         </View>
-      </TouchableOpacity>
+      </View>
     );
   };
 
   return (
     <View style={{backgroundColor: '#ffffff', height: hp('100%')}}>
       <HeaderComponent props={props} search />
+      <ScrollView>
       <View style={{padding: ResponsiveSize(20)}}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <View>
@@ -186,7 +191,7 @@ const EmployeeList = props => {
                 fontFamily: 'Roboto-Medium',
                 fontSize: ResponsiveSize(30),
               }}>
-              56
+              {EmployeeCount}
             </Text>
           </View>
           {/* <TouchableOpacity
@@ -217,6 +222,7 @@ const EmployeeList = props => {
         />
         {/* </View> */}
       </View>
+      </ScrollView>
     </View>
   );
 };

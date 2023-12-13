@@ -1,6 +1,6 @@
 export const IMAGES = {
     search_profileImage: require('../assets/images/profile_image.png'),
-    detial_image: require('../assets/images/detail_image.png'),
+    detial_image: require('../assets/images/details.png'),
     login_image: require('../assets/images/loginimage.png'),
     hide_eye: require('../assets/images/hide.png'),
     show_eye: require('../assets/images/view.png'),

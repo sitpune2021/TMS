@@ -38,7 +38,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPhotos, uploadImages } from '../../slice/ApiCalling';
 
 const Restroom = props => {
-  console.log(props , "props we are recieveinggggg =================>>>>>>")
+  console.log(props , "props for after photos")
   const taskData = props?.route?.params?.item;
   const staticLocation = {
     latitude: Number(taskData?.lat_details).toFixed(7),
@@ -133,9 +133,9 @@ const Restroom = props => {
   }
   
   
-    useEffect(() => {
-  getEarlierPhotos()
-    },[])
+  //   useEffect(() => {
+  // getEarlierPhotos()
+  //   },[])
 
     const onClick = async () => {
       try {
@@ -269,15 +269,15 @@ console.log(error , "error in uploading" )
                 'postion cordinates=====================>>>>>>>>>',
               );
               const maxDistanceThreshold = 100;
-              if (distance <= maxDistanceThreshold) {
-              setModalVisible(false);
+              // if (distance <= maxDistanceThreshold) {
+              // setModalVisible(false);
              
-                  Alert.alert("Location Matched Successfully")
-                } else {
-                       setModalVisible(false)
-                    Alert.alert("You are not at the location")
-               props.navigation.navigate("EmployeeLoginScreen")
-              }
+              //     Alert.alert("Location Matched Successfully")
+              //   } else {
+              //          setModalVisible(false)
+              //       Alert.alert("You are not at the location")
+              //  props.navigation.navigate("EmployeeLoginScreen")
+              // }
               setModalVisible(false)
             }, 1000);
             // setLocationModal(true)
@@ -352,7 +352,7 @@ console.log(error , "error in uploading" )
                 fontSize: ResponsiveSize(18),
                 fontFamily: 'Roboto-Medium',
               }}>
-              Location : Sai Garden
+              Location : {taskData?.restroom_id}
             </Text>
             <Text
               style={{

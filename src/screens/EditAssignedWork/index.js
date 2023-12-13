@@ -52,6 +52,7 @@ import moment from 'moment';
 
 const EditAssignWork = props => {
   const employeeData = props?.route?.params
+  console.log(employeeData , "props data we are gettinggggggg")
   const [employee, setEmployee] = useState(null);
   const [restroom_id, setRestroom_id] = useState(null);
   const [due_time, setDue_time] = useState(props?.route?.params?.due_time);
@@ -199,7 +200,7 @@ const EditAssignWork = props => {
 
   return (
     <View style={{backgroundColor: '#ffffff', height: hp('100%')}}>
-      <HeaderComponent props={props} search />
+      <HeaderComponent props={props}  />
       <View style={{padding:ResponsiveSize(20)}}>
       <Text
         style={{
@@ -218,7 +219,7 @@ const EditAssignWork = props => {
           fontSize: ResponsiveSize(18),
           fontFamily: 'Roboto-Medium',
         }}>
-        Employee Name : {userName}
+        Employee Name : {employeeData?.name}
       </Text>
       <ScrollView>
         <View style={{marginTop: ResponsiveSize(20)}}>
@@ -229,7 +230,7 @@ const EditAssignWork = props => {
               fontSize: ResponsiveSize(18),
               textAlign: 'center',
             }}>
-            Date : 11 Nov 2023
+            Date : {moment(new Date()).format('DD MMM YYYY')}
           </Text>
           <Text
           style={{

@@ -1,14 +1,3 @@
-/**
-
- * Sample React Native App
-
- * https://github.com/facebook/react-native
-
- *
-
- * @format
-
- */
 
 import React, {useRef, useState, useEffect} from 'react';
 import {
@@ -17,8 +6,6 @@ import {
   Error,
   validateEmail,
 } from '../../utils/validation';
-// import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
-
 import {
   StyleSheet,
   Text,
@@ -45,18 +32,37 @@ import {useDispatch} from 'react-redux';
 import {ErrorBox} from '../../component/ErrorBox/errorBox';
 import { CheckBox } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { BackHandler } from 'react-native';
 
 const Login = props => {
   const [show, setShow] = useState(true);
-  const [mobileNumber, setMobileNumber] = useState('8329236958');
-  const [password, setPassword] = useState('s@123');
+  const exitapp = true; 
+  const [mobileNumber, setMobileNumber] = useState('58484848844');
+  const [password, setPassword] = useState('Xnxkkfkfkf');
   const [isEnabled, setIsEnabled] = useState(false);
   const [errors, setErrors] = useState({});
   const [temp, setTemp] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [rememberMe, setRememberMe] = useState(false);
+  useEffect(() => {
+    const backAction = () => {
+      // Handle the back button press
+      // You can add your own logic here
+      // For example, you can show an alert and exit the app when the back button is pressed twice within a short time
 
+      // Exit the app when the back button is pressed
+      BackHandler.exitApp();
+
+      // If you want to prevent the default behavior (going back in the navigation stack), you can return true
+      // return true;
+    };
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+if(exitapp) {
+  return () => backHandler.remove();
+}
+  }, []);
   const toggleRememberMe = () => {
     setRememberMe(!rememberMe);
   };
@@ -77,7 +83,7 @@ const Login = props => {
       if (result?.payload?.user?.position_status === 'vendor') {
         setLoading(false);
         Alert.alert('Logged in Successfully');
-        props.navigation.navigate('Home');
+        props.navigation.replace('Home');
       } else if (result?.payload?.user?.position_status === 'employee') {
         setLoading(false);
         props.navigation.replace('EmployeeLoginScreen');
@@ -86,8 +92,7 @@ const Login = props => {
         setErrorMessage(result?.payload);
       }
     });
-    // }
-    // props.navigation.navigate("AssignWork")
+
   };
 
   const validate = () => {

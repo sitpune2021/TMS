@@ -3,17 +3,7 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {Alert} from 'react-native';
 import {Base_Url, EndPoint} from '../Utility/Api';
-import { addEmployee, deleteEmployee, editEmployee, fetchData, getAllAssignedTask, getAllEmployeeLocationInVendor, getAllLocation, getAllVendorLocation, getEmployeeList, getEmployeeTask, getLocation, getPhotos, getUserDetail, getUserInfo, resetPassword, sendOtp, updateAssignedWork, uploadFinalImages, uploadImages, verifyOtp, workAssign } from './ApiCalling';
-
-
-
-
-
-
-
-
-
-
+import { addEmployee, deleteEmployee, editEmployee, fetchData, getAllAssignedTask, getAllEmployeeLocationInVendor, getAllLocation, getAllVendorLocation, getDashboard, getEmployeeList, getEmployeeTask, getLocation, getPhotos, getUserDetail, getUserInfo, getWorkCount, resetPassword, sendOtp, updateAssignedWork, uploadFinalImages, uploadImages, verifyOtp, workAssign } from './ApiCalling';
 
 const Slice = createSlice({
   name: 'login',
@@ -40,7 +30,8 @@ const Slice = createSlice({
     uploadError: null,
     uploadResponse: null,
     uploadedPhotos: null,
-
+    dashboardCount : null , 
+    workCount : null
 
   },
   extraReducers: builder => {
@@ -366,6 +357,42 @@ const Slice = createSlice({
       state.error = null;
     });
     builder.addCase(getPhotos.rejected, (state, action) => {
+      state.loading = false;
+      console.log('inside the errror', state);
+      if (action.error.message === 'Request failed with status code 400') {
+        state.error = 'Access Denied! Invalid Credentials';
+      } else {
+        state.error === action.error.message;
+      }
+    });
+    builder.addCase(getDashboard.pending, (state, action) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(getDashboard.fulfilled, (state, action) => {
+      state.loading = false;
+      state.dashboardCount = action.payload;
+      state.error = null;
+    });
+    builder.addCase(getDashboard.rejected, (state, action) => {
+      state.loading = false;
+      console.log('inside the errror', state);
+      if (action.error.message === 'Request failed with status code 400') {
+        state.error = 'Access Denied! Invalid Credentials';
+      } else {
+        state.error === action.error.message;
+      }
+    });
+    builder.addCase(getWorkCount.pending, (state, action) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(getWorkCount.fulfilled, (state, action) => {
+      state.loading = false;
+      state.workCount = action.payload;
+      state.error = null;
+    });
+    builder.addCase(getWorkCount.rejected, (state, action) => {
       state.loading = false;
       console.log('inside the errror', state);
       if (action.error.message === 'Request failed with status code 400') {

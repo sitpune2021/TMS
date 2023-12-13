@@ -36,7 +36,7 @@ import {ResponsiveSize} from '../../utils/ResponsiveSize';
 import InputText from '../../component/InputText';
 import {IMAGES} from '../../assets';
 import PieChart from 'react-native-pie-chart';
-import {addEmployee, getEmployeeTask} from '../../slice/ApiCalling';
+import {addEmployee, getDashboard, getEmployeeTask, getWorkCount} from '../../slice/ApiCalling';
 import {useDispatch, useSelector} from 'react-redux';
 import { Dropdown } from 'react-native-element-dropdown';
 
@@ -50,7 +50,8 @@ const Home = props => {
   const [location, setLocation] = useState(null);
   const [name, setName] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [number, setNumber] = useState(null);
+  const [dashboardData, setDashBoardData] = useState(null);
+  const [workCount, setWorkCount] = useState(null);
   const [role, setRole] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [isEnabled, setIsEnabled] = useState(false);
@@ -60,7 +61,6 @@ const Home = props => {
   const sliceColor = ['orange', '#1f51e5', '#ffffff'];
   const dispatch = useDispatch();
   const userData = useSelector(state => state);
-  console.log('userdata iredkdkdk', userData?.user?.user?.user_id);
   const taskID = userData?.user?.user?.user_id;
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const roleData = [
@@ -84,7 +84,7 @@ const Home = props => {
 
  
   const Upload = () => {
-    console.log(name , mobileNumber , employee_id , password , value , "valuee of add employee")
+    
     if(
       name !== null &&
       mobileNumber !== null &&
@@ -104,7 +104,9 @@ const Home = props => {
               vendor_id : userData?.user?.user?.user_id,
               role : value
       })
+      console.log(EmployeeDetail, "valuee of add employee")
   dispatch(addEmployee(EmployeeDetail)).then(result => {
+    console.log(result , " result provided ")
       if (result?.payload === "User created successfully!") {
         setLoading(false);
         Alert.alert(result?.payload)
@@ -136,8 +138,29 @@ const Home = props => {
 
   
   }
+  const getWorkData = () => {
+    dispatch(getWorkCount(taskID)).then(result => {
+      console.log("work=====>> data"  , result)
+        if (result?.payload){
+           setWorkCount(result?.payload)  
+        } 
+      });
+}
 
-  
+const getDashboardData = () => {
+  dispatch(getDashboard(taskID)).then(result => {
+    console.log("dashboard data"  , result)
+      if (result?.payload){
+        setDashBoardData(result?.payload)  
+      } 
+    });
+}
+
+
+  useEffect(() => {
+getDashboardData(),
+getWorkData()
+  }, [])
   return (
     <View style={{backgroundColor: '#ffffff', height: hp('100%')}}>
       <HeaderComponent props={props} />
@@ -162,7 +185,7 @@ const Home = props => {
               alignItems: 'center',
             }}>
             <TouchableOpacity
-            onPress={() => props.navigation.navigate("EmployeeList")}
+            onPress={() => props.navigation.navigate("EmployeeList" , dashboardData)}
               style={{
                 width: ResponsiveSize(161),
                 height: ResponsiveSize(76),
@@ -184,11 +207,11 @@ const Home = props => {
                   fontFamily: 'Roboto-Medium',
                   fontSize: ResponsiveSize(38),
                 }}>
-                86
+                 {dashboardData?.employeeCount}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-            onPress={() => props.navigation.navigate("LocationList")}
+            onPress={() => props.navigation.navigate("LocationList" , dashboardData)}
               style={{
                 width: ResponsiveSize(161),
                 height: ResponsiveSize(76),
@@ -210,7 +233,7 @@ const Home = props => {
                   fontFamily: 'Roboto-Medium',
                   fontSize: ResponsiveSize(38),
                 }}>
-                8
+                {dashboardData?.locationCount}
               </Text>
             </TouchableOpacity>
           </View>
@@ -222,7 +245,7 @@ const Home = props => {
               alignItems: 'center',
             }}>
             <TouchableOpacity
-            onPress={() => props.navigation.navigate("WorkList")}
+            onPress={() => props.navigation.navigate("WorkList" , workCount)}
               style={{
                 width: ResponsiveSize(161),
                 height: ResponsiveSize(76),
@@ -244,11 +267,11 @@ const Home = props => {
                   fontFamily: 'Roboto-Medium',
                   fontSize: ResponsiveSize(38),
                 }}>
-                4
+                {workCount?.completeCount}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-            onPress={()  => props.navigation.navigate("DelayWorkList")}
+            onPress={()  => props.navigation.navigate("DelayWorkList"  , workCount)}
               style={{
                 width: ResponsiveSize(161),
                 height: ResponsiveSize(76),
@@ -270,7 +293,7 @@ const Home = props => {
                   fontFamily: 'Roboto-Medium',
                   fontSize: ResponsiveSize(38),
                 }}>
-                6
+                {workCount?.delayCount}
               </Text>
             </TouchableOpacity>
           </View>

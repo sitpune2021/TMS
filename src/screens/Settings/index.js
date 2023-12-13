@@ -55,7 +55,7 @@ const Settings = props => {
     type !== "employee" && 
     <TouchableOpacity
     onPress={() => {
-      props.navigation.navigate("AssignWork")
+      props.navigation.navigate("AssignedTask")
     }}
       style={{ flexDirection: "row", paddingVertical: 15, marginTop:10 , alignItems: "center" }}
     >
@@ -71,26 +71,6 @@ const Settings = props => {
       </Text>
     </TouchableOpacity>
   }
- {
-  type !== "employee"  && 
-  <TouchableOpacity
-      onPress={() => {
-        props.navigation.navigate("AssignedTask")
-      }}
-        style={{ flexDirection: "row", paddingVertical: 15, marginTop:10 , alignItems: "center" }}
-      >
-        <Text
-          style={{
-            color: 'black',
-            textAlign: "left",
-            fontWeight: 'bold',
-            fontSize: 20,
-            marginLeft: wp("5%")
-          }}>
-        Assigned Work
-        </Text>
-      </TouchableOpacity>
- }
       <TouchableOpacity
       onPress={() => {
         props.navigation.navigate("Login")
@@ -188,7 +168,7 @@ const styles = StyleSheet.create({
   SearchView: {
     paddingHorizontal: wp('3%'),
     paddingVertical:hp('2%'),
-    backgroundColor: '#1f51e5',
+    backgroundColor: '#397421',
     justifyContent:"space-between",
     borderBottomEndRadius:20,
     borderBottomLeftRadius:20

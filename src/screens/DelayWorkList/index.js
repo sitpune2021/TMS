@@ -22,6 +22,7 @@ import {
   Alert,
   Switch,
   FlatList,
+  ScrollView,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import HeaderComponent from '../../component/HeaderComponent';
@@ -39,7 +40,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useIsFocused } from '@react-navigation/native';
 
 const DelayWorkList = props => {
+  console.log(props , "===========>>>>>>>>>> completeee workrrr")
   // const [userData, setUserData] = useState(null)
+  const DelayCount = props?.route?.params?.delayCount
   const [employeeList, setEmployeeList] = useState(null)
   const dispatch = useDispatch();
   const userData = useSelector(state => state)
@@ -107,6 +110,7 @@ console.log("++++++++++++++"  , userInfo)
   return (
     <View style={{ backgroundColor: '#ffffff', height: hp('100%') }}>
       <HeaderComponent  props={props} search/>
+      <ScrollView>
 <View style={{padding:ResponsiveSize(20)}}>
       <View style={{flexDirection:"row"  , justifyContent:"space-between"}}>
         <View>
@@ -124,7 +128,7 @@ console.log("++++++++++++++"  , userInfo)
             fontFamily: "Roboto-Medium" , 
             fontSize: ResponsiveSize(30),
           }}>
-          8
+          {DelayCount}
         </Text>
         </View>
       </View>
@@ -135,6 +139,7 @@ console.log("++++++++++++++"  , userInfo)
       />
       {/* </View> */}
     </View>
+    </ScrollView>
     </View>
   );
 };

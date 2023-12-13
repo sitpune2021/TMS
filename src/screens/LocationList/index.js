@@ -22,6 +22,7 @@ import {
   Alert,
   Switch,
   FlatList,
+  ScrollView,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import HeaderComponent from '../../component/HeaderComponent';
@@ -37,14 +38,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { deleteEmployee, fetchData, getEmployeeList, getUserInfo } from '../../slice/ApiCalling';
 import { useDispatch, useSelector } from 'react-redux';
 import { useIsFocused } from '@react-navigation/native';
+;
 
 const LocationList = props => {
-  // const [userData, setUserData] = useState(null)
+console.log(props , "data we are recieving=======>>>>>>")
+// const LocationCount = props?.route?.params?.locationCount
   const [employeeList, setEmployeeList] = useState(null)
   const dispatch = useDispatch();
   const userData = useSelector(state => state)
   const userInfo = userData?.user?.user?.user_id
-
+  const LocationCount = useSelector(state => state?.dashboardCount?.locationCount)
   const isFocused = useIsFocused()
 console.log("++++++++++++++"  , userInfo)
 
@@ -120,8 +123,6 @@ console.log("user iddd recieved" , item)
           {data?.item?.value}
         </Text>
         <View style={{flexDirection:"row" , justifyContent:"center" , alignItems:"center"}}>
- 
-              
             </View>
       </View>
     );
@@ -130,6 +131,7 @@ console.log("user iddd recieved" , item)
   return (
     <View style={{ backgroundColor: '#ffffff', height: hp('100%') }}>
       <HeaderComponent  props={props} search/>
+      <ScrollView>
 <View style={{padding:ResponsiveSize(20)}}>
       <View style={{flexDirection:"row"  , justifyContent:"space-between"}}>
         <View>
@@ -147,7 +149,7 @@ console.log("user iddd recieved" , item)
             fontFamily: "Roboto-Medium" , 
             fontSize: ResponsiveSize(30),
           }}>
-          8
+          {LocationCount}
         </Text>
         </View>
       </View>
@@ -158,6 +160,7 @@ console.log("user iddd recieved" , item)
       />
       {/* </View> */}
     </View>
+    </ScrollView>
     </View>
   );
 };

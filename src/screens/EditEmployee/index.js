@@ -10,20 +10,16 @@
 
  */
 
-import React, { useRef, Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 // import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 
 import {
     StyleSheet,
     Text,
-    Image,
     View,
     TouchableOpacity,
     TextInput,
     Alert,
-    Switch,
-    FlatList,
-    ActivityIndicator,
     ScrollView
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -138,7 +134,7 @@ getUserLocation()
 
 <ScrollView contentContainerStyle={{padding:ResponsiveSize(20)}}>
             <Text style={{ color: "black", textAlign: "center", fontSize: ResponsiveSize(18), fontFamily:"Roboto-Medium"}}>Edit Employee</Text>
-            <Text style={{ color: "black", textAlign: "center", marginTop:ResponsiveSize(5) , fontSize: ResponsiveSize(18), fontFamily:"Roboto-Medium" }}>Employee Name : {userName}</Text>
+            <Text style={{ color: "black", textAlign: "center", marginTop:ResponsiveSize(5) , fontSize: ResponsiveSize(18), fontFamily:"Roboto-Medium" }}>Employee Name : {employeeData?.name}</Text>
             <View style={{marginTop: ResponsiveSize(20)}}>
             <Text
               style={{

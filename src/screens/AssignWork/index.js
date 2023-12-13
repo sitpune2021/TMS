@@ -175,7 +175,7 @@ console.log("location data===============> "  , locationData)
     return (
         <View style={{ backgroundColor: "#ffffff", height: hp("100%") }}>
             <HeaderComponent props={props} />
-            <Text style={{ color: "black", textAlign: "center", marginTop: hp("4%"), fontSize: 20, fontWeight: "bold" }}>Assign Work</Text>
+            <Text style={{ color: "black", textAlign: "center", marginTop: hp("4%"), fontSize: 20, fontWeight: "bold" }}></Text>
             <View style={{paddingHorizontal:20 , marginTop:20}}>
             <View style={{flexDirection:"row" , justifyContent:"space-between" , alignItems:"center" }}>
                 <Text style={{color:"black" , fontWeight:"bold" , fontSize:16}}>Date :</Text>

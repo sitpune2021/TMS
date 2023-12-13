@@ -16,7 +16,9 @@ export const Endpoint = {
     updateAssignedWork : "/updateEmpoyeeAssignTask/",
     getAllEmployeeLocationInVendor : "getSingleVendorInsideLocationById/",
     uploadImages : "photo-upload",
-    getPhotos : "getSingleEmployeePhoto/"
+    getPhotos : "getSingleEmployeePhoto/",
+    getDashboardData : "getRowCounts/",
+    getWorkCount : "getRowWorkCounts/"
 }
 
 export const Error = {

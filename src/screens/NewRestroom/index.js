@@ -38,8 +38,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPhotos, uploadImages } from '../../slice/ApiCalling';
 
 const NewRestroom = props => {
-  console.log(props , "props we are recieveinggggg =================>>>>>>")
-  const taskData = props?.route?.params?.item;
+  console.log(props , "props we for after ggg =================>>>>>>")
+  const taskData = props?.route?.params[0];
   const staticLocation = {
     latitude: Number(taskData?.lat_details).toFixed(7),
     longitude: Number(taskData?.long_details).toFixed(7),
@@ -47,7 +47,7 @@ const NewRestroom = props => {
   const [dueDate, setDueDate] = useState(null);
   const [current_lat, setCurrent_lat] = useState(null);
   const [current_long, setCurrent_long] = useState(null);
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
   const [locationModal, setLocationModal] = useState(false);
   const [location, setLocation] = useState(null);
   const [pickerImage, setPickedImage] = useState('');
@@ -118,24 +118,7 @@ const NewRestroom = props => {
 
   }
 
-  const getEarlierPhotos = () => {
-    dispatch(getPhotos(usedID)).then(result => {
-      console.log("result for uploaded photos", result)
-      if (result?.payload !== undefined) {
-        console.log("consollllllllll")
-  const sortedImages = result?.payload.filter((item) => item.photo_type === "Before")
-  setPreviousImages(sortedImages)
-      } else {
-        setLoading(false);
-        Alert.alert("Error uploading Images")
-      }
-  })
-  }
   
-  
-    useEffect(() => {
-  getEarlierPhotos()
-    },[])
 
     const onClick = async () => {
       try {
@@ -351,7 +334,7 @@ console.log(error , "error in uploading" )
                 fontSize: ResponsiveSize(18),
                 fontFamily: 'Roboto-Medium',
               }}>
-              Location : Sai Garden
+              Location : {taskData?.restroom_id}
             </Text>
             <Text
               style={{

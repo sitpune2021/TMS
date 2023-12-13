@@ -261,3 +261,46 @@ catch (error){
  
 },
 )
+
+export const getDashboard = createAsyncThunk('getDashboard', async (userCredentials) => {
+  console.log("get photos data ========>>>"  , userCredentials)
+  
+try{
+  const url = Base_Url + Endpoint.getDashboardData + userCredentials
+  console.log("url we are getting here is " , url)
+  const res = await axios.get(
+    url,
+    { headers: { 'Content-Type': 'application/json'  } },
+  );
+  const response = await res.data;
+
+  return response;
+}
+catch (error){
+  console.log(error , "error")
+}
+
+ 
+},
+)
+export const getWorkCount = createAsyncThunk('getWorkCount', async (userCredentials) => {
+  console.log("get photos data ========>>>"  , userCredentials)
+  
+try{
+  const url = Base_Url + Endpoint.getWorkCount + userCredentials
+  console.log("url we are getting here is " , url)
+  const res = await axios.get(
+    url,
+    { headers: { 'Content-Type': 'application/json'  } },
+  );
+  const response = await res.data;
+
+  return response;
+}
+catch (error){
+  console.log(error , "error")
+}
+
+ 
+},
+)

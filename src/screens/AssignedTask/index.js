@@ -57,7 +57,7 @@ const AssignedTask = props => {
   console.log("props recieved here" , props)
   const employeeData = props?.route?.params
   // const [userData, setUserData] = useState(null)
-  const [employeeList, setEmployeeList] = useState(null);
+  const [employeeList, setEmployeeList] = useState([]);
   const [checked, setChecked] = React.useState('first');
   const [assignedwork, setAssignedWork] = useState(true);
   const [assignwork, setAssignWork] = useState(true);
@@ -69,6 +69,7 @@ const AssignedTask = props => {
   const [restroom , setRestroom]  = useState(null);
   const [showPicker, setShowPicker] = useState(false);
   const [remark, setRemark] = useState(null);
+  const [assingedTask, setAssingedTask] = useState([]);
   const [date, setDate] = useState(new Date());
   const dispatch = useDispatch();
   const userData = useSelector(state => state);
@@ -90,6 +91,24 @@ const AssignedTask = props => {
         
       });
 }
+
+const getUserList = async () => {
+  dispatch(getEmployeeList(userInfo)).then(result => {
+    console.log('result recieved==== user dar4dkdkdk', result);
+    if (result?.payload) {
+      setEmployeeList(result?.payload);
+    }
+  });
+};
+
+const getAssignedTask = async () => {
+  dispatch(getAllAssignedTask(userInfo)).then(result => {
+    console.log('result recieved==== user dar4dkdkdk', result);
+    if (result?.payload) {
+      setAssingedTask(result?.payload);
+    }
+  });
+};
 const showDateTimePicker = () => {
   setShowPicker(true);
 };
@@ -107,9 +126,9 @@ const assignWork = ()  => {
       
     const EmployeeDetail = {
         date: moment(new Date()).format('YYYY-MM-DD'),
-        employee_name : employeeData?.name,
+        employee_name : value,
         restroom_id: restroom,
-        emp_task_id: employeeData?.user_id,
+        emp_task_id: employeeID,
         position_status: "employee",
         remark: remark,
         due_time: currentDate,
@@ -120,20 +139,21 @@ const assignWork = ()  => {
   dispatch(workAssign(EmployeeDetail)).then(result => {
     console.log("result we are recieving " , result)
     if (result?.payload === "Employee Task Assign successfully!") {
-      
-    //   setLoading(false);
       Alert.alert(result?.payload)
       getUserList()
       setAssignWork(false),
       setAssignedWork(true),
       setChecked("first")
-      // props.navigation.navigate("EmployeeList")
+      setRestroom(null)
+      setValue(null)
+      setRemark(null)
     } else {
-    //   setLoading(false);
      Alert.alert(result?.payload)
      setAssignWork(false),
      setAssignedWork(true),
-     setChecked("first")
+     setRestroom(null)
+     setValue(null)
+     setRemark(null)
     }
   });
   }
@@ -141,62 +161,19 @@ const assignWork = ()  => {
       Alert.alert("Please Enter the Remark")
      }
       }
-  const data = [
-    {
-      color: 'red',
-      value: '#f00',
-    },
-    {
-      color: 'green',
-      value: '#0f0',
-    },
-    {
-      color: 'blue',
-      value: '#00f',
-    },
-    {
-      color: 'red',
-      value: '#f00',
-    },
-    {
-      color: 'green',
-      value: '#0f0',
-    },
-    {
-      color: 'blue',
-      value: '#00f',
-    },
-    {
-      color: 'red',
-      value: '#f00',
-    },
-    {
-      color: 'green',
-      value: '#0f0',
-    },
-    {
-      color: 'blue',
-      value: '#00f',
-    },
-  ];
-  const getUserList = async () => {
-    dispatch(getAllAssignedTask(userInfo)).then(result => {
-      console.log("data we are recieveinggg" , employeeList)
-      if (result?.payload) {
-        setEmployeeList(result?.payload);
-      }
-    });
-  };
-
   useEffect(() => {
     getUserList();
     getUserLocation();
+    getAssignedTask();
   }, []);
   const ImageData = data => {
-    console.log('data recieved , ============>>>', data);
+    console.log(data , " consoleee we are getttingggggg")
     return (
       <View style={styles.ImageDataStyle}>
         <View>
+        <Text style={{color: 'black', fontSize: 15, fontFamily:"Roboto-Medium"}}>
+          Employee Name : 
+        </Text>
         <Text style={{color: 'black', fontSize: 15, fontFamily:"Roboto-Medium"}}>
           Location : 
         </Text>
@@ -206,8 +183,12 @@ const assignWork = ()  => {
         <Text style={{color: 'black', fontSize: 15, fontFamily:"Roboto-Medium"}}>
           Remark : 
         </Text>
+      
         </View>
         <View>
+        <Text style={{color: 'black', fontSize: 15, fontFamily:"Roboto-Regular"}}>
+         {data?.item?.name}
+        </Text>
         <Text style={{color: 'black', fontSize: 15, fontFamily:"Roboto-Regular"}}>
          {data?.item?.restroom_id}
         </Text>
@@ -247,19 +228,9 @@ const assignWork = ()  => {
   console.log("employee list we are recieving " , employeeList)
   return (
     <View style={{backgroundColor: '#ffffff', height: hp('100%')}}>
-      <HeaderComponent props={props} search />
-
+      <HeaderComponent props={props}  />
+      <ScrollView>
       <View style={{padding: ResponsiveSize(20)}}>
-        <Text
-          style={{
-            color: '#000',
-            textAlign: 'left',
-            fontFamily: 'Roboto-Medium',
-            fontSize: ResponsiveSize(18),
-          }}>
-          Employee Name : {userData?.user?.user?.name}
-        </Text>
-     
       <View style={{flexDirection:'row' , justifyContent:"space-between" , alignItems:"center" , marginTop:ResponsiveSize(10)}}>
       <View style={{ flexDirection: 'row', alignItems: 'center'  }}>
         <RadioButton
@@ -281,15 +252,13 @@ const assignWork = ()  => {
     </View>
       {assignedwork && (
         <FlatList
-          data={employeeList}
+          data={assingedTask}
           renderItem={ImageData}
           style={{paddingHorizontal: 10 , marginBottom:100}}
         />
       )}
 
  {assignwork && (
-  <ScrollView>
-
         <View style={{marginTop: ResponsiveSize(20)}}>
         <Text
           style={{
@@ -298,8 +267,36 @@ const assignWork = ()  => {
             fontSize: ResponsiveSize(18),
             textAlign:"center"
           }}>
-          Date  :  11 Nov 2023
+          Date  :  {moment(new Date()).format('DD MMM YYYY')}
         </Text>
+        <Text
+          style={{
+            color: '#000',
+            fontFamily: 'Roboto-Regular',
+            fontSize: ResponsiveSize(15),
+            marginTop:ResponsiveSize(20)
+          }}>
+          Employee Name
+        </Text>
+        <Dropdown
+        style={styles.dropdown}
+        placeholderStyle={styles.placeholderStyle}
+        selectedTextStyle={styles.selectedTextStyle}
+        inputSearchStyle={styles.inputSearchStyle}
+        itemTextStyle={{color:"black"}}
+        iconStyle={styles.iconStyle}
+        data={employeeList}
+        search
+        maxHeight={300}
+        labelField="name"
+        valueField="name"
+        placeholder="Select employee"
+        searchPlaceholder="Search..."
+        value={value}
+        onChange={item => {
+          setValue(item?.name);
+          setEmployeeID(item?.user_id)
+        }}/>
         <Text
           style={{
             color: '#000',
@@ -383,7 +380,6 @@ const assignWork = ()  => {
         </Text>
       </TouchableOpacity>
       </View>
-      </ScrollView>
       )}
       {/* </View> */}
       {showPicker && (
@@ -397,6 +393,7 @@ const assignWork = ()  => {
         />
             )}
     </View>
+    </ScrollView>
     </View>
   );
 };
