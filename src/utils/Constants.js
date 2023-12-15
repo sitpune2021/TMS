@@ -18,7 +18,8 @@ export const Endpoint = {
     uploadImages : "photo-upload",
     getPhotos : "getSingleEmployeePhoto/",
     getDashboardData : "getRowCounts/",
-    getWorkCount : "getRowWorkCounts/"
+    getWorkCount : "getRowWorkCounts/",
+    getWorkStatus : "getSingleEmployeeLateMarkById/"
 }
 
 export const Error = {

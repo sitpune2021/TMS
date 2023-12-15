@@ -304,3 +304,15 @@ catch (error){
  
 },
 )
+
+export const workStatus = createAsyncThunk('workStatus', async (userCredentials) => {
+  const res = await axios.get(
+    Base_Url + Endpoint.getWorkStatus + userCredentials,
+    { headers: { 'Content-Type': 'application/json' } },
+  );
+  const response = await res.data;
+  console.log(response, "console 2")
+
+  return response;
+},
+)

@@ -3,7 +3,7 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {Alert} from 'react-native';
 import {Base_Url, EndPoint} from '../Utility/Api';
-import { addEmployee, deleteEmployee, editEmployee, fetchData, getAllAssignedTask, getAllEmployeeLocationInVendor, getAllLocation, getAllVendorLocation, getDashboard, getEmployeeList, getEmployeeTask, getLocation, getPhotos, getUserDetail, getUserInfo, getWorkCount, resetPassword, sendOtp, updateAssignedWork, uploadFinalImages, uploadImages, verifyOtp, workAssign } from './ApiCalling';
+import { addEmployee, deleteEmployee, editEmployee, fetchData, getAllAssignedTask, getAllEmployeeLocationInVendor, getAllLocation, getAllVendorLocation, getDashboard, getEmployeeList, getEmployeeTask, getLocation, getPhotos, getUserDetail, getUserInfo, getWorkCount, resetPassword, sendOtp, updateAssignedWork, uploadFinalImages, uploadImages, verifyOtp, workAssign, workStatus } from './ApiCalling';
 
 const Slice = createSlice({
   name: 'login',
@@ -31,8 +31,8 @@ const Slice = createSlice({
     uploadResponse: null,
     uploadedPhotos: null,
     dashboardCount : null , 
-    workCount : null
-
+    workCount : null,
+    workingStatus : null 
   },
   extraReducers: builder => {
     builder.addCase(fetchData.pending, (state, action) => {
@@ -393,6 +393,24 @@ const Slice = createSlice({
       state.error = null;
     });
     builder.addCase(getWorkCount.rejected, (state, action) => {
+      state.loading = false;
+      console.log('inside the errror', state);
+      if (action.error.message === 'Request failed with status code 400') {
+        state.error = 'Access Denied! Invalid Credentials';
+      } else {
+        state.error === action.error.message;
+      }
+    });
+    builder.addCase(workStatus.pending, (state, action) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(workStatus.fulfilled, (state, action) => {
+      state.loading = false;
+      state.workingStatus = action.payload;
+      state.error = null;
+    });
+    builder.addCase(workStatus.rejected, (state, action) => {
       state.loading = false;
       console.log('inside the errror', state);
       if (action.error.message === 'Request failed with status code 400') {

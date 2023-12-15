@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React , {useState , useEffect} from 'react'
-import { getEmployeeList, getEmployeeTask } from '../../slice/ApiCalling';
+import { getEmployeeList, getEmployeeTask, workStatus } from '../../slice/ApiCalling';
 import { useDispatch, useSelector } from 'react-redux';
 import { FlatList } from 'react-native';
 import {
@@ -16,7 +16,8 @@ import { TaskAbortError } from '@reduxjs/toolkit';
 
 const EmployeeLoginScreen = (props)  => {
     const dispatch = useDispatch();
-    const [employeeList , setEmployeeList] = useState(null)
+    const [completeWorkCount , setCompleteWorkCount ] = useState(null)
+    const [delayWorkCount , setDelayWorkCount] = useState(null)
     const [taskData , setTaskData] = useState(null)
     const userData = useSelector(state => state);
     const taskID = userData?.user?.user?.user_id;
@@ -52,18 +53,24 @@ const EmployeeLoginScreen = (props)  => {
         getAssignedTask();
       }, []);
       
-  // const getUserList = async () => {
-  //   dispatch(getEmployeeList(userInfo)).then(result => {
-  //     console.log('result recieved==== user dar4dkdkdk', result);
-  //     if (result?.payload) {
-  //       setEmployeeList(result?.payload);
-  //     }
-  //   });
-  // };
+  const getWorkStatus = async () => {
+    dispatch(workStatus(taskID)).then(result => {
+      console.log('workstatus we are getttinggg', result);
+      if (result?.payload) {
+let complete = (result?.payload?.late_mark_complete_count/result?.payload?.total_count)*100 ;
+setCompleteWorkCount(complete + "%")
+let delay = (result?.payload?.late_mark_delay_count/result?.payload?.total_count)*100
+setDelayWorkCount(delay + "%")
 
-//   useEffect(() => {
-//     getUserList();
-//   }, []);
+
+        // setEmployeeList(result?.payload);
+      }
+    });
+  };
+
+  useEffect(() => {
+    getWorkStatus();
+  }, []);
 
       const ImageData = data => {
         console.log('data recieved , ============>>>', data);
@@ -123,14 +130,14 @@ const EmployeeLoginScreen = (props)  => {
             </Text>
             
             </View>
-            <View style={{height:ResponsiveSize(18) , flexDirection:"row" , marginVertical:10}}>
-                <View style={{backgroundColor:"red" , width:"40%", borderTopLeftRadius:ResponsiveSize(20) , borderBottomLeftRadius:ResponsiveSize(20), height:ResponsiveSize(16)}}></View>
-                <View style={{backgroundColor:"green" , width:"60%",  borderTopRightRadius:ResponsiveSize(20) , borderBottomRightRadius:ResponsiveSize(20), height:ResponsiveSize(16)}}></View>
+            <View style={{height:ResponsiveSize(18) , flexDirection:"row" ,  width:"100%" ,marginVertical:10}}>
+                <View style={{backgroundColor:"red" , width:completeWorkCount,  height:ResponsiveSize(16)}}></View>
+                <View style={{backgroundColor:"green" , width:delayWorkCount,   height:ResponsiveSize(16)}}></View>
 
             </View>
             <View style={{flexDirection:"row" , justifyContent:"space-between" , alignItems:"center"}}>
                 <View style={{flexDirection:"row" , justifyContent:"space-between" , alignItems:"center"}}>
-                    <View style={{height:ResponsiveSize(12) , width:ResponsiveSize(12) , borderRadius:ResponsiveSize(20) , backgroundColor:"green"}}></View>
+                    <View style={{height:ResponsiveSize(12) , width:ResponsiveSize(12) , borderRadius:ResponsiveSize(20) , backgroundColor:"red"}}></View>
                     <Text  style={{
                 color: '#000000',
                 fontFamily: 'Roboto-Regular',
