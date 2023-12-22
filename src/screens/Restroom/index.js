@@ -122,6 +122,7 @@ const Restroom = props => {
     dispatch(getPhotos(usedID)).then(result => {
       console.log("result for uploaded photos", result)
       if (result?.payload !== undefined) {
+        props.navigation.navigate("StartWork")
         console.log("consollllllllll")
   const sortedImages = result?.payload.filter((item) => item.photo_type === "Before")
   setPreviousImages(sortedImages)
@@ -133,9 +134,9 @@ const Restroom = props => {
   }
   
   
-  //   useEffect(() => {
-  // getEarlierPhotos()
-  //   },[])
+    useEffect(() => {
+  getEarlierPhotos()
+    },[])
 
     const onClick = async () => {
       try {

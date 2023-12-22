@@ -60,7 +60,7 @@ const AssignedTask = props => {
   const [employeeList, setEmployeeList] = useState([]);
   const [checked, setChecked] = React.useState('first');
   const [assignedwork, setAssignedWork] = useState(true);
-  const [assignwork, setAssignWork] = useState(true);
+  const [assignwork, setAssignWork] = useState(false);
   const [latitude , setLatitude]  = useState([]);
   const [longitude , setLongitude]  = useState([]);
   const [value , setValue]  = useState(null);
@@ -148,9 +148,10 @@ const assignWork = ()  => {
       setValue(null)
       setRemark(null)
     } else {
-     Alert.alert(result?.payload)
+     Alert.alert("Try Again After some time")
      setAssignWork(false),
      setAssignedWork(true),
+     setChecked("first")
      setRestroom(null)
      setValue(null)
      setRemark(null)

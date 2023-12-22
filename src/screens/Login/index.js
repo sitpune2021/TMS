@@ -37,8 +37,8 @@ import { BackHandler } from 'react-native';
 const Login = props => {
   const [show, setShow] = useState(true);
   const exitapp = true; 
-  const [mobileNumber, setMobileNumber] = useState('');
-  const [password, setPassword] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('8237199777');
+  const [password, setPassword] = useState('PCMCV@2023#');
   const [isEnabled, setIsEnabled] = useState(false);
   const [errors, setErrors] = useState({});
   const [temp, setTemp] = useState(false);
