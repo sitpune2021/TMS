@@ -35,7 +35,7 @@ import InputText from '../../component/InputText';
 import { IMAGES } from '../../assets';
 import PieChart from 'react-native-pie-chart';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { deleteEmployee, fetchData, getEmployeeList, getUserInfo } from '../../slice/ApiCalling';
+import { deleteEmployee, fetchData, getEmployeeList, getLocation, getUserInfo } from '../../slice/ApiCalling';
 import { useDispatch, useSelector } from 'react-redux';
 import { useIsFocused } from '@react-navigation/native';
 ;
@@ -44,6 +44,7 @@ const LocationList = props => {
 console.log(props , "data we are recieving=======>>>>>>")
 // const LocationCount = props?.route?.params?.locationCount
   const [employeeList, setEmployeeList] = useState(null)
+  const [userLocation, setUserLocation] = useState(null)
   const dispatch = useDispatch();
   const userData = useSelector(state => state)
   const userInfo = userData?.user?.user?.user_id
@@ -80,6 +81,15 @@ console.log("++++++++++++++"  , userInfo)
   
   ];
 
+
+  const getUserLocation = () => {
+    dispatch(getLocation(userInfo)).then(result => {
+        if (result?.payload){
+            let data = result?.payload?.map((item , index) => item)
+            setUserLocation(data)    
+        } 
+      });
+}
   const deleteUser = (item) => {
 
 console.log("user iddd recieved" , item)
@@ -114,13 +124,14 @@ console.log("user iddd recieved" , item)
 
   useEffect(() => {
     getUserList()
+    getUserLocation()
   }, [isFocused])
   const ImageData = (data) => {
     console.log("data recieved here====>>>>>>", data)
     return (
       <View style={styles.ImageDataStyle}>
         <Text style={{ color: 'black', fontSize: ResponsiveSize(16), fontFamily:"Roboto-Regular" }}>
-          {data?.item?.value}
+          {data?.item?.location}
         </Text>
         <View style={{flexDirection:"row" , justifyContent:"center" , alignItems:"center"}}>
             </View>
@@ -154,7 +165,7 @@ console.log("user iddd recieved" , item)
         </View>
       </View>
       <FlatList
-        data={data}
+        data={userLocation}
         renderItem={ImageData}
         style={{ paddingHorizontal: 10 }}
       />
