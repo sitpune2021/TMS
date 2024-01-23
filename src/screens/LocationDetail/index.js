@@ -162,7 +162,7 @@ const LocatinDetail = props => {
 
   return (
     <View style={{backgroundColor: '#ffffff', height: hp('100%')}}>
-      <HeaderComponent props={props} search />
+      <HeaderComponent props={props} search logout />
 
       <View style={{padding: ResponsiveSize(20)}}>
         <Text

@@ -27,7 +27,7 @@ export const validateNumber = number => {
   export const Error = {
     passwordEmpty: 'Please enter your password',
     passwordValidate: 'Please enter your  valid password',
-    mobileEmpty: 'Please enter your employee ID',
+    mobileEmpty: 'Please enter your  mobile number',
     mobileValidate: 'Please enter your mobile number',
     otpEmpty: 'Please enter OTP',
     otpValidate: 'Invalid Otp Provide!',

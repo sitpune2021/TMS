@@ -37,14 +37,14 @@ import { BackHandler } from 'react-native';
 const ForgotPassword = props => {
   const [show, setShow] = useState(true);
   const exitapp = true; 
-  const [mobileNumber, setMobileNumber] = useState('58484848844');
-  const [password, setPassword] = useState('Xnxkkfkfkf');
+  const [mobileNumber, setMobileNumber] = useState('');
+  const [password, setPassword] = useState('');
   const [isEnabled, setIsEnabled] = useState(false);
   const [errors, setErrors] = useState({});
   const [temp, setTemp] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
-  const [confirmPassword, setConfrimPassword] = useState(null);
+  const [confirmPassword, setConfrimPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   useEffect(() => {
     const backAction = () => {
@@ -70,7 +70,16 @@ if(exitapp) {
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const dispatch = useDispatch();
   const onLogin = async () => {
-    props.navigation.navigate("Login")
+    const isValid = validate();
+    if(isValid){
+      if(password === confirmPassword){
+        props.navigation.navigate("Login")
+      }else{
+        Alert.alert("Password Mismatch")
+      }
+    }
+   
+   
     // setLoading(true);
     // const userCredentials = JSON.stringify({
     //   contact_no: mobileNumber,

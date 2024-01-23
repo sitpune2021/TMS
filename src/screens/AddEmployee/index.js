@@ -158,7 +158,7 @@ getUserLocation()
       keyboardShouldPersistTaps="handled"
       contentContainerStyle={{marginBottom:20}}>
         <View style={{ backgroundColor: "#ffffff", height: hp("100%") }}>
-            <HeaderComponent props={props} />
+            <HeaderComponent props={props}  logout/>
 
 <ScrollView>
             <Text style={{ color: "black", textAlign: "center", marginTop: hp("4%"), fontSize: 20, fontWeight: "bold" }}>Add Employee</Text>

@@ -178,7 +178,7 @@ getEarlierPhotos()
   console.log("picker image we got", previousImages)
   return (
     <View style={{ backgroundColor: "#fff", height: hp("100%") }}>
-      <HeaderComponent props={props} />
+      <HeaderComponent props={props}logout/>
       <ScrollView>
         <View style={{ marginTop: hp("4%") }}>
 

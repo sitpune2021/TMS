@@ -11,6 +11,7 @@ import { ResponsiveSize } from '../../utils/ResponsiveSize';
 import { Image } from 'react-native';
 import { IMAGES } from '../../assets';
 import HeaderComponent from '../../component/HeaderComponent';
+import moment from 'moment';
 
 
 const Notification = (props)  => {

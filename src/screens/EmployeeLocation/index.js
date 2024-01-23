@@ -90,7 +90,7 @@ const EmployeeLocation = (props)  => {
       };
     return(
         <View>
-            <HeaderComponent search props={props}/>
+            <HeaderComponent search props={props} logout/>
             <View style={{padding:ResponsiveSize(20) } }>
             <Text
               style={{

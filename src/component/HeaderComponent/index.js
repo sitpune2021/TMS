@@ -64,15 +64,20 @@ const HeaderComponent = (props) => {
       source={IMAGES.notification_bell}
       resizeMode="contain"></Image>
       </TouchableOpacity>
-      <TouchableOpacity 
-      onPress={() => {
-        props?.props?.navigation?.navigate("Settings")
-      }}>
-       <Image
-      style={styles.DetailView}
-      source={IMAGES.detial_image}
-      resizeMode="contain"></Image>
-      </TouchableOpacity>
+      {
+        props.logout && 
+   <TouchableOpacity 
+   onPress={() => {
+     props?.props?.navigation?.navigate("Settings")
+   }}>
+     
+    <Image
+   style={styles.DetailView}
+   source={IMAGES.detial_image}
+   resizeMode="contain"></Image>
+   </TouchableOpacity>
+      }
+   
   </View>
 </View>
 {props.search && 

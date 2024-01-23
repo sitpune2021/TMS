@@ -87,7 +87,7 @@ const FinalPhotos = props => {
   };
   return (
     <View>
-      <HeaderComponent props={props} employee />
+      <HeaderComponent props={props} employee logout />
       <View style={{padding: ResponsiveSize(20)}}>
         <View
           style={{

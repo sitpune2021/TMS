@@ -174,7 +174,7 @@ dispatch(workAssign(EmployeeDetail)).then(result => {
 console.log("location data===============> "  , locationData)
     return (
         <View style={{ backgroundColor: "#ffffff", height: hp("100%") }}>
-            <HeaderComponent props={props} />
+            <HeaderComponent props={props}  logout/>
             <Text style={{ color: "black", textAlign: "center", marginTop: hp("4%"), fontSize: 20, fontWeight: "bold" }}></Text>
             <View style={{paddingHorizontal:20 , marginTop:20}}>
             <View style={{flexDirection:"row" , justifyContent:"space-between" , alignItems:"center" }}>

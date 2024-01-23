@@ -172,7 +172,7 @@ const EmployeeList = props => {
 
   return (
     <View style={{backgroundColor: '#ffffff', height: hp('100%')}}>
-      <HeaderComponent props={props} search />
+      <HeaderComponent props={props}   />
       <ScrollView>
       <View style={{padding: ResponsiveSize(20)}}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -183,7 +183,7 @@ const EmployeeList = props => {
                 fontFamily: 'Roboto-Medium',
                 fontSize: ResponsiveSize(18),
               }}>
-              No. of employees
+              No. of employee's
             </Text>
             <Text
               style={{

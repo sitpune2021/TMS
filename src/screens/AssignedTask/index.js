@@ -229,7 +229,7 @@ const assignWork = ()  => {
   console.log("employee list we are recieving " , employeeList)
   return (
     <View style={{backgroundColor: '#ffffff', height: hp('100%')}}>
-      <HeaderComponent props={props}  />
+      <HeaderComponent props={props}  logout/>
       <ScrollView>
       <View style={{padding: ResponsiveSize(20)}}>
       <View style={{flexDirection:'row' , justifyContent:"space-between" , alignItems:"center" , marginTop:ResponsiveSize(10)}}>

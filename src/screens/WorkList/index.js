@@ -137,7 +137,7 @@ console.log("user iddd recieved" , item)
 
   return (
     <View style={{ backgroundColor: '#ffffff', height: hp('100%') }}>
-      <HeaderComponent  props={props} search/>
+      <HeaderComponent  props={props} search logout/>
       <ScrollView>
 <View style={{padding:ResponsiveSize(20)}}>
       <View style={{flexDirection:"row"  , justifyContent:"space-between"}}>

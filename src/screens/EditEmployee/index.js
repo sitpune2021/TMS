@@ -130,7 +130,7 @@ getUserLocation()
       keyboardShouldPersistTaps="handled"
       contentContainerStyle={{marginBottom:20}}>
         <View style={{ backgroundColor: "#ffffff", height: hp("100%") }}>
-            <HeaderComponent search props={props} />
+            <HeaderComponent search props={props}  />
 
 <ScrollView contentContainerStyle={{padding:ResponsiveSize(20)}}>
             <Text style={{ color: "black", textAlign: "center", fontSize: ResponsiveSize(18), fontFamily:"Roboto-Medium"}}>Edit Employee</Text>

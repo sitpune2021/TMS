@@ -109,6 +109,8 @@ const Home = props => {
     console.log(result , " result provided ")
       if (result?.payload === "User created successfully!") {
         setLoading(false);
+        getWorkCount()
+        getDashboardData()
         Alert.alert(result?.payload)
         props.navigation.navigate("EmployeeList")
         setEmployee_id(null)
@@ -163,7 +165,7 @@ getWorkData()
   }, [])
   return (
     <View style={{backgroundColor: '#ffffff', height: hp('100%')}}>
-      <HeaderComponent props={props} />
+      <HeaderComponent props={props}  logout/>
       <ScrollView>
         <View style={{padding: ResponsiveSize(20)}}>
           <Text
@@ -189,7 +191,7 @@ getWorkData()
               style={{
                 width: ResponsiveSize(161),
                 height: ResponsiveSize(76),
-                backgroundColor: '#0074B1',
+                backgroundColor: '#0074B1D9',
                 borderRadius: ResponsiveSize(10),
                 padding: ResponsiveSize(5),
               }}>
@@ -249,7 +251,7 @@ getWorkData()
               style={{
                 width: ResponsiveSize(161),
                 height: ResponsiveSize(76),
-                backgroundColor: '#089685',
+                backgroundColor: '#CA9E04',
                 borderRadius: ResponsiveSize(10),
                 padding: ResponsiveSize(5),
               }}>
@@ -259,7 +261,7 @@ getWorkData()
                   fontFamily: 'Roboto-Regular',
                   fontSize: ResponsiveSize(14),
                 }}>
-                Today's delay work
+                Today's complete work
               </Text>
               <Text
                 style={{

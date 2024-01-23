@@ -1,4 +1,3 @@
-
 import React, {useRef, useState, useEffect} from 'react';
 import {
   validateNumber,
@@ -30,15 +29,15 @@ import {fetchData} from '../../slice/ApiCalling';
 import {ActivityIndicator} from 'react-native-paper';
 import {useDispatch} from 'react-redux';
 import {ErrorBox} from '../../component/ErrorBox/errorBox';
-import { CheckBox } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { BackHandler } from 'react-native';
+import {BackHandler} from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
 
 const Login = props => {
   const [show, setShow] = useState(true);
-  const exitapp = true; 
-  const [mobileNumber, setMobileNumber] = useState('8237199777');
-  const [password, setPassword] = useState('PCMCV@2023#');
+  const exitapp = true;
+  const [mobileNumber, setMobileNumber] = useState('');
+  const [password, setPassword] = useState('');
   const [isEnabled, setIsEnabled] = useState(false);
   const [errors, setErrors] = useState({});
   const [temp, setTemp] = useState(false);
@@ -58,10 +57,13 @@ const Login = props => {
       // return true;
     };
 
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
-if(exitapp) {
-  return () => backHandler.remove();
-}
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+    if (exitapp) {
+      return () => backHandler.remove();
+    }
   }, []);
   const toggleRememberMe = () => {
     setRememberMe(!rememberMe);
@@ -92,7 +94,6 @@ if(exitapp) {
         setErrorMessage(result?.payload);
       }
     });
-
   };
 
   const validate = () => {
@@ -142,6 +143,10 @@ if(exitapp) {
     return ref.current;
   };
 
+  const handleCheckboxChange = () => {
+    setRememberMe(!rememberMe);
+  };
+
   const prevPassword = usePreviousPassword(password);
 
   useEffect(() => {
@@ -155,127 +160,155 @@ if(exitapp) {
 
   return (
     <ScrollView>
-    <View
-      style={{
-        flex: 1,
-        padding: ResponsiveSize(20),
-      }}>
-      <View>
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: hp('6%'),
-          }}>
-          <Image
-            style={{height: ResponsiveSize(210), width: ResponsiveSize(204)}}
-            source={IMAGES.login_logo}
-            resizeMode="contain"></Image>
-         
-        </View>
+      <View
+        style={{
+          flex: 1,
+          padding: ResponsiveSize(20),
+        }}>
+        <View>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: hp('6%'),
+            }}>
+            <Image
+              style={{height: ResponsiveSize(210), width: ResponsiveSize(204)}}
+              source={IMAGES.login_logo}
+              resizeMode="contain"></Image>
+          </View>
 
-        <View style={{flexDirection:"row" , justifyContent:"space-between" , marginTop:ResponsiveSize(16) , alignItems:"center"}}>
-          <Image
-            style={{height: ResponsiveSize(49), width: ResponsiveSize(62)}}
-            source={IMAGES.login_imgone}
-            resizeMode="contain"></Image>
-          <Image
-            style={{height: ResponsiveSize(26), width: ResponsiveSize(81)}}
-            source={IMAGES.login_imgtwo}
-            resizeMode="contain"></Image>
-          <Image
-            style={{height: ResponsiveSize(43), width: ResponsiveSize(99)}}
-            source={IMAGES.login_imgthree}
-            resizeMode="contain"></Image>
-          <Image
-            style={{height: ResponsiveSize(47), width: ResponsiveSize(61)}}
-            source={IMAGES.login_imgfour}
-            resizeMode="contain"></Image>
-        </View>
-        <Text style={{color: '#000', fontSize: ResponsiveSize(22), marginTop: hp('4%') , textAlign:"center" , fontFamily:"Roboto-Medium"}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginTop: ResponsiveSize(16),
+              alignItems: 'center',
+            }}>
+            <Image
+              style={{height: ResponsiveSize(49), width: ResponsiveSize(62)}}
+              source={IMAGES.login_imgone}
+              resizeMode="contain"></Image>
+            <Image
+              style={{height: ResponsiveSize(26), width: ResponsiveSize(81)}}
+              source={IMAGES.login_imgtwo}
+              resizeMode="contain"></Image>
+            <Image
+              style={{height: ResponsiveSize(43), width: ResponsiveSize(99)}}
+              source={IMAGES.login_imgthree}
+              resizeMode="contain"></Image>
+            <Image
+              style={{height: ResponsiveSize(47), width: ResponsiveSize(61)}}
+              source={IMAGES.login_imgfour}
+              resizeMode="contain"></Image>
+          </View>
+          <Text
+            style={{
+              color: '#000',
+              fontSize: ResponsiveSize(22),
+              marginTop: hp('4%'),
+              textAlign: 'center',
+              fontFamily: 'Roboto-Medium',
+            }}>
             Login
           </Text>
-        {errorMessage !== null && errorMessage !== undefined && (
-          <ErrorBox errMsg={errorMessage} />
-        )}
-        <View>
-        <Text style={{color: '#000', fontSize: ResponsiveSize(18), marginTop: ResponsiveSize(15) , fontFamily:"Roboto-Regular"}}>
-            Enter your mobile number
-          </Text>
-          <InputText
-            placeholder="Mobile number"
-            value={mobileNumber}
-            onChangeText={value => {
-              setMobileNumber(value);
-              // validate();
-            }}
-            rightImage
-          />
-          {errors?.mobileNumber?.length > 0 && (
-            <Text style={{color: '#A6192E', padding: 3}}>
-              {errors?.mobileNumber}
-            </Text>
+          {errorMessage !== null && errorMessage !== undefined && (
+            <ErrorBox errMsg={errorMessage} />
           )}
-
           <View>
-          <Text style={{color: '#000', fontSize: ResponsiveSize(18), marginTop: ResponsiveSize(15) , fontFamily:"Roboto-Regular"}}>
-            Enter your password
-          </Text>
+            <Text
+              style={{
+                color: '#000',
+                fontSize: ResponsiveSize(18),
+                marginTop: ResponsiveSize(15),
+                fontFamily: 'Roboto-Regular',
+              }}>
+              Enter your mobile number
+            </Text>
             <InputText
-              placeholder="Password"
-              value={password}
+              placeholder="Mobile number"
+              value={mobileNumber}
               onChangeText={value => {
-                setPassword(value);
+                setMobileNumber(value);
                 // validate();
               }}
-              rightIcon={true}
-              onRightIconPressed={() => {
-                setShow(!show);
-              }}
-              secureTextEntry={show}></InputText>
-            {errors?.password?.length > 0 && (
+              rightImage
+            />
+            {errors?.mobileNumber?.length > 0 && (
               <Text style={{color: '#A6192E', padding: 3}}>
-                {errors?.password}
+                {errors?.mobileNumber}
               </Text>
             )}
+
+            <View>
+              <Text
+                style={{
+                  color: '#000',
+                  fontSize: ResponsiveSize(18),
+                  marginTop: ResponsiveSize(15),
+                  fontFamily: 'Roboto-Regular',
+                }}>
+                Enter your password
+              </Text>
+              <InputText
+                placeholder="Password"
+                value={password}
+                onChangeText={value => {
+                  setPassword(value);
+                  // validate();
+                }}
+                rightIcon={true}
+                onRightIconPressed={() => {
+                  setShow(!show);
+                }}
+                secureTextEntry={show}></InputText>
+              {errors?.password?.length > 0 && (
+                <Text style={{color: '#A6192E', padding: 3}}>
+                  {errors?.password}
+                </Text>
+              )}
+            </View>
           </View>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginTop: hp('2%'),
-            alignItems:"center",
-            paddingHorizontal: wp('4.5%'),
-          }}>
-          <View>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-       
-      
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginTop: hp('2%'),
+              alignItems: 'center',
+              // paddingHorizontal: wp('4.5%'),
+            }}>
+            <View>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                {/* <View style={{borderColor:"black" , height: 20, width:40 , borderWidth:0.2}}> */}
+                <CheckBox
+                  value={rememberMe}
+                  onValueChange={handleCheckboxChange}
+                />
+                {/* </View> */}
+                <Text
+                  style={{
+                    fontSize: ResponsiveSize(16),
+                    color: '#22215B',
+                    fontFamily: 'Roboto-Regular',
+                  }}>
+                  Remember Me
+                </Text>
+              </View>
+            </View>
+            <TouchableOpacity
+              onPress={() => {
+                props.navigation.navigate('ForgotPassword');
+              }}>
               <Text
                 style={{
                   fontSize: ResponsiveSize(16),
-                  color: '#22215B',
-                  fontFamily:"Roboto-Regular"
+                  color: '#397421',
+                  fontFamily: 'Roboto-Regular',
                 }}>
-                Remember Me
+                Forgot Password?
               </Text>
-            </View>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            onPress={() => {
-              props.navigation.navigate('ForgotPassword');
-            }}>
-            <Text
-              style={{
-                fontSize: ResponsiveSize(16),
-                color: '#397421',
-                fontFamily:"Roboto-Regular"
-              }}>
-              Forgot Password?
-            </Text>
-          </TouchableOpacity>
-        </View>
           <TouchableOpacity onPress={onLogin} style={styles.button}>
             <Text
               style={{
@@ -286,12 +319,9 @@ if(exitapp) {
               {loading ? <ActivityIndicator /> : 'Login'}
             </Text>
           </TouchableOpacity>
-        
+        </View>
+        <View>{/* <BottomScreen /> */}</View>
       </View>
-      <View>
-        {/* <BottomScreen /> */}
-      </View>
-    </View>
     </ScrollView>
   );
 };
@@ -309,10 +339,10 @@ export const BottomScreen = () => {
         bottom: 0,
         backgroundColor: '#1f51e5',
       }}>
-     <Image
-            style={{height: ResponsiveSize(59)}}
-            source={IMAGES.footerImage}
-            resizeMode="contain"></Image>
+      <Image
+        style={{height: ResponsiveSize(59)}}
+        source={IMAGES.footerImage}
+        resizeMode="contain"></Image>
     </View>
   );
 };

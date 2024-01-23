@@ -311,7 +311,7 @@ console.log(error , "error in uploading" )
   }, []);
   return (
     <View style={{backgroundColor: '#fff'}}>
-      <HeaderComponent props={props} employee />
+      <HeaderComponent props={props} employee logout />
       <ScrollView
         // contentContainerStyle={{marginBottom: hp('4%')}}
         keyboardShouldPersistTaps="handled">

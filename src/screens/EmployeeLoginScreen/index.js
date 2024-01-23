@@ -12,6 +12,7 @@ import { Image } from 'react-native';
 import { IMAGES } from '../../assets';
 import HeaderComponent from '../../component/HeaderComponent';
 import { TaskAbortError } from '@reduxjs/toolkit';
+import moment from 'moment';
 
 
 const EmployeeLoginScreen = (props)  => {
@@ -107,7 +108,7 @@ setDelayWorkCount(delay + "%")
       };
     return(
         <View>
-            <HeaderComponent  props={props}/>
+            <HeaderComponent  props={props} logout/>
             <View style={{padding:ResponsiveSize(20)} }>
                 <View style={{flexDirection:"row" , justifyContent:"space-between" , alignItems:"center"}}>
             <Text
@@ -126,7 +127,7 @@ setDelayWorkCount(delay + "%")
                 fontSize: ResponsiveSize(15),
                marginTop:10
               }}>
-              22 Nov 2023
+              {moment(new Date()).format('DD-MMM-YYYY')}
             </Text>
             
             </View>

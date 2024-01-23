@@ -112,7 +112,7 @@ const RemarkScreen = (props)  => {
       };
     return(
         <View>
-            <HeaderComponent  props={props} search/>
+            <HeaderComponent  props={props} search logout/>
             <View style={{padding:ResponsiveSize(20) } }>
             <Text
               style={{
